@@ -7,6 +7,8 @@ const greenLight = document.querySelector('.green-light');
 const redSwitch = document.getElementById('red-switch'); 
 const yellowSwitch = document.getElementById('yellow-switch'); 
 const greenSwitch = document.getElementById('green-switch');  
+const cycleSwitch = document.getElementById('cycle-switch');
+const offSwitch = document.getElementById('off-switch');
 
 //Add event listeners that listen for a button click
 
@@ -16,7 +18,7 @@ redSwitch.addEventListener('click', () => {
     if (isRed) {
         redLight.style.backgroundColor = 'red';
     } else {
-        redLight.style.backgroundColor = 'black';
+        redLight.style.backgroundColor = '#444';    //Turn all lights on and off with their specific buttons
     }
     isRed = !isRed;
 });
@@ -28,7 +30,7 @@ yellowSwitch.addEventListener('click', () => {
     if (isYellow) {
         yellowLight.style.backgroundColor = 'yellow';
     } else {
-        yellowight.style.backgroundColor = 'black';
+        yellowLight.style.backgroundColor = '#444';    //Turn all lights on and off with their specific buttons
     }
     isYellow = !isYellow;
 });
@@ -39,14 +41,45 @@ greenSwitch.addEventListener('click', () => {
     if (isGreen) {
         greenLight.style.backgroundColor = 'green';
     } else {
-        greenLight.style.backgroundColor = 'black';
+        greenLight.style.backgroundColor = '#444';    //Turn all lights on and off with their specific buttons
     }
     isGreen = !isGreen;
 }); 
 
-
-//Turn all lights on and off with their specific buttons
-
 //Party Mode Button
 
+let currentLight = 'red'; 
+let intervalId = null;
+
+function cycleLight(){
+    redLight.style.backgroundColor = '#444';
+    yellowLight.style.backgroundColor = '#444';
+    greenLight.style.backgroundColor = '#444';
+    if(currentLight === 'red'){
+        redLight.style.backgroundColor = 'red'; 
+        currentLight = 'yellow';
+    } else if (currentLight === 'yellow'){
+        yellowLight.style.backgroundColor = 'yellow'; 
+        currentLight = 'green';
+    } else {
+        greenLight.style.backgroundColor = 'green'; 
+        currentLight = 'red';
+    }
+}
+
+cycleSwitch.addEventListener('click', () => {
+    if(!intervalId) {
+    intervalId = setInterval(cycleLight, 1000);
+    }
+}); 
+
 //Turn all lights on and off at once with a single button
+
+let isoff = true;
+
+offSwitch.addEventListener('click', () => {
+    if (isoff) {
+        noLight.style.backgroundColor = '#444';
+    }
+    isoff = !isoff;
+});
