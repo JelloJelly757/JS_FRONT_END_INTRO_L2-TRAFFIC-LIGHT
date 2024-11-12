@@ -2,6 +2,7 @@
 const redLight = document.querySelector('.red-light'); 
 const yellowLight = document.querySelector('.yellow-light'); 
 const greenLight = document.querySelector('.green-light');
+const noLight = document.querySelector('.no-light');
 
 //Use getElementById which allows us to get the ID so that we can add an event listener to the buttons, listen for a click and then set the color via css properties.
 const redSwitch = document.getElementById('red-switch'); 
@@ -69,17 +70,24 @@ function cycleLight(){
 
 cycleSwitch.addEventListener('click', () => {
     if(!intervalId) {
-    intervalId = setInterval(cycleLight, 1000);
+    intervalId = setInterval(cycleLight, 400);
     }
 }); 
 
 //Turn all lights on and off at once with a single button
 
-let isoff = true;
+function turnAllLightsOff() {
+    redLight.style.backgroundColor = '#444';
+    yellowLight.style.backgroundColor = '#444';
+    greenLight.style.backgroundColor = '#444';
+}
+
+let isOff = true;
 
 offSwitch.addEventListener('click', () => {
-    if (isoff) {
-        noLight.style.backgroundColor = '#444';
-    }
-    isoff = !isoff;
-});
+    if (isOff) {
+        turnAllLightsOff();
+    } 
+
+    isOff = !isOff;
+}); 
